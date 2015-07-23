@@ -1,5 +1,6 @@
 library(shiny)
 library(rCharts)
+require(markdown)
 
 shinyUI(
     pageWithSidebar(
