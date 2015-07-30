@@ -1,6 +1,7 @@
 library(shiny)
 library(rCharts)
 library(googleVis)
+require(markdown)
 
 shinyUI(
     pageWithSidebar(
