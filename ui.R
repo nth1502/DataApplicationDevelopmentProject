@@ -51,7 +51,7 @@ shinyUI(
                 
                 tabPanel(p(icon('line-chart'),'Result'), 
                          h4('Interested information'),
-                         tableOutput('intdata'),
+                         dataTableOutput('intdata'),
                          h4('Comparing qx accross states'),
                          htmlOutput('chart2'),
                          h4('Analysis of qx / mortality rate of all ages in the State'),

@@ -6,7 +6,6 @@ gettable <- function(state, gender){
         tb <- tb[,c(1,6:9)]
     }
     colnames(tb) <-  c('Age','lx','qx','Lx','ex')
-    print(head(tb))
     return(tb)
 }
 
@@ -14,7 +13,6 @@ extractdata <- function(state, gender, age, info){
     tb <- gettable(state, gender)
     index <- age + 1
     result <- tb[index, c('Age',info)]
-    print(result)
     return(result)
 }
 
@@ -42,7 +40,6 @@ mapplot <- function(age, gender){
                 'Australian Capital Territory'
     )
     df <- data.frame(States=states,qx=qxset)
-    print(df)
     #Mapping
     GeoStates <- gvisGeoChart(df, 
                               locationvar = 'States', 
@@ -52,5 +49,4 @@ mapplot <- function(age, gender){
                                            resolution="provinces",
                                             width=600, height=400))
     return(GeoStates)
-    
 }

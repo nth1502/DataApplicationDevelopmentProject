@@ -34,7 +34,8 @@ shinyServer(function(input,output){
     
     output$table <- renderDataTable({lifetable()})
     
-    output$intdata <- renderTable({interestData()})
+    output$intdata <- renderDataTable({interestData()},
+                                      options = list(paging = F,searching = F))
     
     output$chart1 <- renderChart2({
         plotqx(input$State, input$Gender)
