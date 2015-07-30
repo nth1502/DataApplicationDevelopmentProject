@@ -1,6 +1,6 @@
 library(shiny)
 library(rCharts)
-require(markdown)
+library(googleVis)
 
 shinyUI(
     pageWithSidebar(
@@ -51,14 +51,15 @@ shinyUI(
                 tabPanel(p(icon('line-chart'),'Result'), 
                          h4('Interested information'),
                          tableOutput('intdata'),
-                         h4('Analysis of qx / mortality rate'),
-                         chartOutput('chart1','polycharts'),
-                         chartOutput('chart2','polycharts'),
-                         chartOutput('chart3','polycharts')
+                         h4('Comparing qx accross states'),
+                         htmlOutput('chart2'),
+                         h4('Analysis of qx / mortality rate of all ages in the State'),
+                         chartOutput('chart1','polycharts')
+                         
                 ),
                 
                 tabPanel(p(icon('table'), 'Life table'),
-                         tableOutput('table')
+                         dataTableOutput('table')
                 )
             )
         )

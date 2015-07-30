@@ -1,6 +1,8 @@
 library(shiny)
 library(xlsx)
 library(rCharts)
+library(googleVis)
+
 
 # Load helper functions
 source("helpers.R", local = TRUE)
@@ -10,6 +12,7 @@ for (i in 2:10){
     temp <- read.xlsx2('./data/data.xls',
                        sheetIndex = i,
                        colIndex = 1:9,
+                       colClasses = rep('numeric',9),
                        startRow = 8,
                        endRow = 108,
                        header=F)
@@ -29,13 +32,17 @@ shinyServer(function(input,output){
         extractdata(input$State, input$Gender, input$Age, input$Info)
     })
     
-    output$table <- renderTable({lifetable()}, 
-                                include.rownames = F)
+    output$table <- renderDataTable({lifetable()})
     
-    output$intdata <- renderTable({interestData()}, 
-                                  include.rownames = F)
+    output$intdata <- renderTable({interestData()})
     
     output$chart1 <- renderChart2({
         plotqx(input$State, input$Gender)
+    })
+    
+    #output$testdf <- renderTable({mapplot(input$Age, input$Gender)}, 
+    #                             include.rownames = F)
+    output$chart2 <- renderGvis({
+        mapplot(input$Age, input$Gender)
     })
 })

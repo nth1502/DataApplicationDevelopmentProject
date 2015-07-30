@@ -6,13 +6,16 @@ gettable <- function(state, gender){
         tb <- tb[,c(1,6:9)]
     }
     colnames(tb) <-  c('Age','lx','qx','Lx','ex')
+    print(head(tb))
     return(tb)
 }
 
 extractdata <- function(state, gender, age, info){
     tb <- gettable(state, gender)
     index <- age + 1
-    return(tb[index, c('Age',info)])
+    result <- tb[index, c('Age',info)]
+    print(result)
+    return(result)
 }
 
 plotqx <- function(state, gender){
@@ -22,3 +25,32 @@ plotqx <- function(state, gender){
     return(r1)
 }
 
+mapplot <- function(age, gender){
+    #Forming data frame of qx
+    qxset <- c()
+    for (s in 2:9) {
+        qxdata <- extractdata(s, gender, age, 'qx')
+        qxset <- c(qxset, qxdata[1,2])
+    }
+    states <- c('New South Wales', 
+                'Victoria',
+                'Queenland',
+                'South Australia',
+                'Western Australia',
+                'Tasmania',
+                'Northern Territory',
+                'Australian Capital Territory'
+    )
+    df <- data.frame(States=states,qx=qxset)
+    print(df)
+    #Mapping
+    GeoStates <- gvisGeoChart(df, 
+                              locationvar = 'States', 
+                              colorvar = 'qx',
+                              options=list(region ="AU", 
+                                           displayMode="regions", 
+                                           resolution="provinces",
+                                            width=600, height=400))
+    return(GeoStates)
+    
+}
